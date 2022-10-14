@@ -1,0 +1,34 @@
+<nav class="navbar is-fixed-top mb-5" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/home">
+      <img src="/assets/images/logo1.png" alt="site-logo" style="max-height: 75px" class="py-1 px-1">
+    </a>
+
+    <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a> -->
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start"></div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-light" *ngIf="!isLoggedIn()" routerLink="/login">
+            Login
+          </a>
+          <a class="button is-dark" *ngIf="isLoggedIn()" (click)="logout()">
+            Logout
+          </a>
+          <a class="button is-primary" routerLink="/registration">
+            <strong>Sign Up</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>

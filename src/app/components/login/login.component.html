@@ -1,0 +1,60 @@
+<!-- <mat-card>
+  <div id="title">ERS</div>
+  <div id="header">
+    <img src="../../../assets/images/benjamin_head.png" alt="">
+  </div>
+
+  <form id="loginForm" [formGroup]="loginForm">
+    <div>
+      <input type="text" name="username" id="username" placeholder="Username" formControlName="username">
+      <p id="username-p" [ngClass]="isUsername ? '' : 'transparent'">* Username is required</p>
+    </div>
+    <div>
+      <input type="password" name="password" id="password" placeholder="Password" formControlName="password">
+      <p id="password-p" [ngClass]="isPassword ? '' : 'transparent'">* Password is required</p>
+    </div>
+    <p id="incorrectFields" [ngClass]="invalidCredentials ? '' : 'transparent'">* Username or password incorrect</p>
+    <div id="submit">
+      <a routerLink="/registration">Register</a>
+      <button type="submit" (click)="login()">Login</button>
+    </div>
+  </form>
+</mat-card> -->
+
+<section class="section">
+  <div class="container has-text-centered">
+    <div class="card pt-5">
+      <header class="card-header">
+        <!-- <p class="card-header-title">
+          ERS
+        </p> -->
+        <!-- <img src="../../../assets/images/benjamin_head.png" alt="benjamin_head"> -->
+      </header>
+
+      <form id="loginForm" [formGroup]="loginForm">
+        <div>
+          <input type="text" class="input" name="username" placeholder="Username" formControlName="username">
+          <!-- <input type="text" name="username" id="username" placeholder="Username" formControlName="username"> -->
+          <p id="username-p" [ngClass]="isUsername ? '' : 'transparent'">* Username is required</p>
+        </div>
+        <div>
+          <input type="password" class="input" name="password" placeholder="Password" formControlName="password">
+          <!-- <input type="password" name="password" id="password" placeholder="Password" formControlName="password"> -->
+          <p id="password-p" [ngClass]="isPassword ? '' : 'transparent'">* Password is required</p>
+        </div>
+        <p id="incorrectFields" [ngClass]="invalidCredentials ? '' : 'transparent'">* Username or password incorrect</p>
+
+        <input type="submit" class="button" value="Login" (click)="login()">
+
+        <!-- <div id="submit">
+          <a routerLink="/registration">Register</a>
+          <button type="submit" (click)="login()">Login</button>
+        </div> -->
+      </form>
+      <a routerLink="/registration">Register</a>
+    </div>
+  </div>
+</section>
+
+
+
