@@ -1,1 +1,83 @@
-<p>registration works!</p>
+<section class="section" id="registration">
+  <div class="container has-text-centered is-family-code">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="card has-background-dark">
+          <div class="card-title is-size-2 has-text-white pt-5">
+            Sign Up
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <form id="registrationForm" [formGroup]="registrationForm">
+
+                <!-- <div>
+                  <div id="selectRole">
+                    <label for="userRole">Select User Role</label>
+                  </div>
+                  <select name="userRole" id="userRole" placeholder="UserRole" formControlName="userRole">
+                  <option [ngValue]="userRoles[0]">Employee</option>
+                  <option [ngValue]="userRoles[1]">Finance Manager</option>
+                  </select>
+                </div> -->
+
+                <!-- <div class="has-text-white">
+                  <h3 id="roleHeader" class="has-text-white">Select User Role</h3>
+                  <div id="selectRole" class="pb-5">
+                    <label>
+                      <input [value]="userRoles[0]" type="radio" name="userRole" id="employee" formControlName="userRole" >Employee
+                    </label>
+                    <label>
+                      <input [value]="userRoles[1]" type="radio" name="userRole" id="financeManager" formControlName="userRole" >Finance Manager
+                    </label>
+                  </div>
+                </div> -->
+
+                <div class="control py-5">
+                  <h3 id="roleHeader" class="has-text-white">Select User Role</h3>
+                  <label class="radio has-text-white pr-2">
+                    <input [value]="userRoles[0]" type="radio" name="userRole" id="employee" formControlName="userRole" >Employee
+                  </label>
+                  <label class="radio has-text-white pl-2">
+                    <input [value]="userRoles[1]" type="radio" name="userRole" id="financeManager" formControlName="userRole" >Finance Manager
+                  </label>
+                </div>
+
+                <div class="signUpForm has-text-justified pb-4">
+                  <div>
+                    <label class="label has-text-white is-family-code">First Name</label>
+                    <input type="text" class="input is-small is-rounded is-family-code" name="firstName" id="firstName" placeholder="FirstName" formControlName="firstName">
+                    <p id="firstNameError" [ngClass]="firstNameIsEmpty ? '' : 'transparent'">*First Name is Requred</p>
+                  </div>
+                  <div>
+                    <label class="label has-text-white is-family-code">Last Name</label>
+                    <input type="text" class="input is-small is-rounded is-family-code" name="lastName" id="lastName" placeholder="LastName" formControlName="lastName">
+                    <p id="lastNameError" [ngClass]="lastNameIsEmpty ? '' : 'transparent'">*Last Name is Requred</p>
+                  </div>
+                  <div>
+                    <label class="label has-text-white is-family-code">Username</label>
+                    <input type="text" class="input is-small is-rounded is-family-code" name="username" id="username" placeholder="Username" formControlName="username">
+                    <p id="usernameError" [ngClass]="usernameIsEmpty ? '' : 'transparent'">*Username is Requred</p>
+                  </div>
+                  <div>
+                    <label class="label has-text-white is-family-code">Password</label>
+                    <input type="password" class="input is-small is-rounded is-family-code" name="password" id="password" placeholder="Password" formControlName="password">
+                    <p id="passwordError" [ngClass]="passwordIsEmpty? '' : 'transparent'">*Password is Requred</p>
+                  </div>
+                  <div>
+                    <label class="label has-text-white is-family-code">Email</label>
+                    <input type="text" class="input is-small is-rounded is-family-code" name="email" id="email" placeholder="Email" formControlName="email">
+                    <p id="emailError" [ngClass]="emailIsEmpty? '' : 'transparent'">*Email is Requred</p>
+                  </div>
+                </div>
+                <div id="submit">
+                  <input type="submit" class="button is-black has-text-weight-bold is-family-code" value="Register" (click)="register()">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
