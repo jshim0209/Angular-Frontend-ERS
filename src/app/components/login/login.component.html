@@ -4,29 +4,29 @@
       <div class="column is-half is-offset-one-quarter">
         <div class="card pt-6">
           <div class="card-image">
-            <img src="../../../assets/images/benjamin_head.png" alt="benjamin_head">
+            <img src="../../../assets/images/benjamin_head.png" alt="benjamin_head" class="benjamin py-4">
           </div>
           <div class="card-title is-size-5 has-text-weight-bold is-family-code">
             Expense Reimbursement System
           </div>
           <div class="card-content">
-            <div class="content is-fluid">
+            <div class="content">
               <form id="loginForm" [formGroup]="loginForm">
                 <div>
-                  <input type="text" class="input is-medium is-rounded" name="username" placeholder="Username" formControlName="username">
+                  <input type="text" class="input is-small is-rounded" id="username" name="username" placeholder="Username" formControlName="username">
                   <!-- <input type="text" name="username" id="username" placeholder="Username" formControlName="username"> -->
                   <p id="username-p" [ngClass]="isUsername ? '' : 'transparent'">* Username is required</p>
                 </div>
                 <div>
-                  <input type="password" class="input is-medium is-rounded" name="password" placeholder="Password" formControlName="password">
+                  <input type="password" class="input is-small is-rounded" id="password" name="password" placeholder="Password" formControlName="password">
                   <!-- <input type="password" name="password" id="password" placeholder="Password" formControlName="password"> -->
                   <p id="password-p" [ngClass]="isPassword ? '' : 'transparent'">* Password is required</p>
                 </div>
                 <p id="incorrectFields" [ngClass]="invalidCredentials ? '' : 'transparent'">* Username or password incorrect</p>
-                <input type="submit" class="button is-primary" value="Login" (click)="login()">
+                <input type="submit" class="button is-dark has-text-weight-bold is-family-code" value="Login" (click)="login()">
               </form>
             </div>
-            <a routerLink="/registration">Register</a>
+            <a routerLink="/registration" class="has-text-info has-text-weight-bold is-family-code">Create Account</a>
           </div>
 
         </div>
