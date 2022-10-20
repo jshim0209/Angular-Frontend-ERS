@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ReimbursementListComponent } from './components/reimbursement-list/reimbursement-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     ManagerHomeComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ReimbursementListComponent
   ],
   imports: [
     BrowserModule,

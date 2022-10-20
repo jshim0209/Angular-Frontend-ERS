@@ -22,7 +22,16 @@
             <th class="has-text-white has-text-centered">Type</th>
             <th class="has-text-white has-text-centered">Receipt</th>
             <th>
-              <div class="control has-icons-left">
+              <div class="select is-rounded is-small">
+
+                <select [(ngModel)]="selectedStatus" (ngModelChange)="filterByStatus($event)">
+                  <option [value]="4">All</option>
+                  <option *ngFor="let status of statuses" [value]="status.id">
+                    {{ status.status }}
+                  </option>
+                </select>
+              </div>
+              <!-- <div class="control has-icons-left">
                 <div class="select is-rounded is-small">
                   <select #status (change)="filterByStatus(status.value)" name="status" id="select" class="has-text-weight-bold is-family-code has-text-centered">
                     <option value="All" selected="true">Status</option>
@@ -32,7 +41,7 @@
                 <div class="icon is-small is-left">
                   <i class="fa-solid fa-thumbs-up"></i>
                 </div>
-              </div>
+              </div> -->
             </th>
           </tr>
       </thead>

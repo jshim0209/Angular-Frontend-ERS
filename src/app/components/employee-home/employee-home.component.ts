@@ -10,39 +10,60 @@ import { ReimbursementService } from 'src/app/services/reimbursement.service';
 })
 export class EmployeeHomeComponent implements OnInit {
 
-  @Input() status!: Status;
+  // @Input() status!: Status;
 
-  reimbursementDtos!: ReimbursementDto[];
+  reimbursementDtos: ReimbursementDto[] = [];
   firstName = localStorage.getItem('firstName');
   userId = localStorage.getItem('userId');
-  statusArray: String[] = ["Pending", "Approved", "Rejected"];
-  value!: string;
+  statuses: Status[] = [];
+  selectedStatus: number = 0;
+
 
   constructor(
     private reimbService: ReimbursementService,
   ) { }
 
   ngOnInit(): void {
+    this.listStatuses();
     this.getReimbursementByUser(this.userId);
   }
 
-  getReimbursementByUser(userId: string|null) {
+  listStatuses() {
+    this.reimbService.getStatuses().subscribe(data => {
+      if(data) this.statuses = data;
+    });
+  }
 
-    this.reimbService.getReimbursementByUser(this.userId).subscribe({
+  getReimbursementByUser(userId: string | null) {
+
+    this.reimbService.getReimbursementByUser(userId).subscribe({
       next: (data) => {
         this.reimbursementDtos = data;
       }
     })
   }
 
-  filterByStatus(value: string) {
-    localStorage.setItem('status', value);
-    if (value == "All") {
-      this.reimbService.getAllReimbursements();
+  filterByStatus(selectedStatus: number) {
+
+    console.log(selectedStatus);
+
+    if (selectedStatus === 4) {
+      this.getReimbursementByUser(this.userId);
     } else {
-      this.reimbService.getReimbursementByStatus(this.value).subscribe(data => {
+      this.reimbService.getReimbursementByUserAndStatus(this.userId, selectedStatus).subscribe(data => {
         if(data) this.reimbursementDtos = data;
       })
     }
   }
+
+  // filterByStatus(value: string) {
+  //   localStorage.setItem('status', value);
+  //   if (value == "All") {
+  //     this.reimbService.getAllReimbursements();
+  //   } else {
+  //     this.reimbService.getReimbursementByStatus(this.value).subscribe(data => {
+  //       if(data) this.reimbursementDtos = data;
+  //     })
+  //   }
+  // }
 }
