@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginDto } from 'src/app/models/login-dto';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
   loginDto!: LoginDto;
   isUsername: boolean = false;
   isPassword: boolean = false;
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
     ) {}
 
   ngOnInit(): void {
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn();
 
     this.loginForm = this.fb.group({
-      username: new FormControl('', [Validators.required, this.noWhitespaceValidator]),
-      password: new FormControl('', [Validators.required, this.noWhitespaceValidator]),
+      username: new UntypedFormControl('', [Validators.required, this.noWhitespaceValidator]),
+      password: new UntypedFormControl('', [Validators.required, this.noWhitespaceValidator]),
     });
 
     this.authService.loginNotification.subscribe(() => {
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  noWhitespaceValidator(control: FormControl) {
+  noWhitespaceValidator(control: UntypedFormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace' : true };

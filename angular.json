@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "ERS_Frontend"
+  "cli": {
+    "analytics": false
+  }
 }
