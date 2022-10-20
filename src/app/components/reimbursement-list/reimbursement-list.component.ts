@@ -14,6 +14,8 @@ export class ReimbursementListComponent implements OnInit {
   @Input() status!: Status;
 
   firstName = localStorage.getItem('firstName');
+  userId = localStorage.getItem('userId');
+  userRole = localStorage.getItem('userRole');
   reimbursementDtos: ReimbursementDto[] = [];
   currentStatusId: number = 0;
   statuses: Status[] = [];
@@ -31,14 +33,25 @@ export class ReimbursementListComponent implements OnInit {
     });
   }
   getReimbursements() {
-    const  hasStatusId: boolean = this.route.snapshot.paramMap.has('id');
+    const hasStatusId: boolean = this.route.snapshot.paramMap.has('id');
 
     if (hasStatusId) {
+
       this.currentStatusId = +this.route.snapshot.paramMap.get('id')!;
-      this.reimbService.getReimbursements(this.currentStatusId).subscribe(data => {
-        this.reimbursementDtos = data;
-      })
-    } else {
+
+      if (this.userRole == 'employee') {
+        this.getReimbursementByUserAndStatus(this.userId, this.currentStatusId);
+
+      } else {
+        this.reimbService.getReimbursements(this.currentStatusId).subscribe(data => {
+          this.reimbursementDtos = data;
+        });
+      }
+    }
+    if (this.userRole == 'employee') {
+      this.getReimbursementByUser(this.userId);
+    }
+    else {
       this.getAllReimbursements();
     }
   }
@@ -54,6 +67,24 @@ export class ReimbursementListComponent implements OnInit {
     this.reimbService.getAllReimbursements().subscribe(data => {
       this.reimbursementDtos = data;
     });
+  }
+
+  getReimbursementByUser(userId: string | null) {
+
+    this.reimbService.getReimbursementByUser(userId).subscribe({
+      next: (data) => {
+        this.reimbursementDtos = data;
+      }
+    })
+  }
+
+  getReimbursementByUserAndStatus(userId: string | null, status: number ) {
+
+    this.reimbService.getReimbursementByUserAndStatus(userId, status).subscribe({
+      next: (data) => {
+        this.reimbursementDtos = data;
+      }
+    })
   }
 
 }
