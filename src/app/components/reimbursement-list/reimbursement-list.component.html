@@ -61,7 +61,16 @@
             <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
             <td>{{reimbursementDto.type.type}}</td>
             <td>
-              <img mat-card-image src= "{{reimbursementDto.receipt}}" alt="No Picture"> </td>
+              <button class="button is-rounded" (click)="openModal()">View Receipt</button>
+              <div class="modal" [ngClass]="{isActive: isActive == false}">
+                <div class="modal-background"></div>
+                <div class="modal-content has-background-white py-5 px-5">
+                  <img mat-card-image src= "{{reimbursementDto.receipt}}" alt="No Picture">
+                </div>
+              </div>
+              <!--  -->
+              <!-- <img mat-card-image src= "{{reimbursementDto.receipt}}" alt="No Picture"> -->
+            </td>
             <td>{{reimbursementDto.status.status}}</td>
           </tr>
       </tbody>

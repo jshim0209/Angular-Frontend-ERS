@@ -1,0 +1,9 @@
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content" *ngFor="let reimbursementDto of reimbursementDtos">
+    <p class="image is-4by3">
+      <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
+    </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>

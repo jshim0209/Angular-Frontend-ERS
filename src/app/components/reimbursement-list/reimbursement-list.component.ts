@@ -19,6 +19,7 @@ export class ReimbursementListComponent implements OnInit {
   reimbursementDtos: ReimbursementDto[] = [];
   currentStatusId: number = 0;
   statuses: Status[] = [];
+  isActive: boolean = false;
 
   constructor(
     private reimbService: ReimbursementService,
@@ -32,6 +33,15 @@ export class ReimbursementListComponent implements OnInit {
       this.getReimbursements();
     });
   }
+
+  openModal() {
+    if (this.isActive == false) {
+      this.isActive = true;
+    } else {
+      this.isActive = false;
+    }
+  }
+
   getReimbursements() {
     const hasStatusId: boolean = this.route.snapshot.paramMap.has('id');
 

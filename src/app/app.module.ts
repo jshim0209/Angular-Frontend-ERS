@@ -12,6 +12,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReimbursementListComponent } from './components/reimbursement-list/reimbursement-list.component';
+import { ReceiptModalComponent } from './components/receipt-modal/receipt-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReimbursementListComponent } from './components/reimbursement-list/reim
     ManagerHomeComponent,
     LoginComponent,
     RegistrationComponent,
-    ReimbursementListComponent
+    ReimbursementListComponent,
+    ReceiptModalComponent
   ],
   imports: [
     BrowserModule,
