@@ -58,12 +58,12 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('firstName', response.body.firstName);
             localStorage.setItem('userRole', response.body.userRole);
 
-            console.log(response.body);
-            console.log(localStorage.getItem('jwt'));
-            console.log(localStorage.getItem('userId'));
-            console.log(localStorage.getItem('username'));
-            console.log(localStorage.getItem('firstName'));
-            console.log(localStorage.getItem('userRole'));
+            // console.log(response.body);
+            // console.log(localStorage.getItem('jwt'));
+            // console.log(localStorage.getItem('userId'));
+            // console.log(localStorage.getItem('username'));
+            // console.log(localStorage.getItem('firstName'));
+            // console.log(localStorage.getItem('userRole'));
 
             response.body.userRole == 'employee' ? this.router.navigate(['employee-home']) : this.router.navigate(['manager-home']);
 
