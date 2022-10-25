@@ -26,4 +26,8 @@ p {
   visibility: hidden;
 }
 
+.card {
+  border-radius: 20px;
+}
+
 

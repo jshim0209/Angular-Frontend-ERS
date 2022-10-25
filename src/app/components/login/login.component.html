@@ -13,11 +13,13 @@
             <div class="content">
               <form id="loginForm" [formGroup]="loginForm">
                 <div>
+                  <label class="label has-text-white is-family-code">Username</label>
                   <input type="text" class="input is-small is-rounded is-family-code" id="username" name="username" placeholder="Username" formControlName="username">
                   <!-- <input type="text" name="username" id="username" placeholder="Username" formControlName="username"> -->
                   <p id="username-p" [ngClass]="isUsername ? '' : 'transparent'">* Username is required</p>
                 </div>
                 <div>
+                  <label class="label has-text-white is-family-code">Password</label>
                   <input type="password" class="input is-small is-rounded is-family-code" id="password" name="password" placeholder="Password" formControlName="password">
                   <!-- <input type="password" name="password" id="password" placeholder="Password" formControlName="password"> -->
                   <p id="password-p" [ngClass]="isPassword ? '' : 'transparent'">* Password is required</p>
