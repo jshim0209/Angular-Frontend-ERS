@@ -1,7 +1,10 @@
-<nav class="navbar is-fixed-top mb-5" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/home">
-      <img src="/assets/images/logo1.png" alt="site-logo" style="max-height: 75px" class="py-1 px-1">
+<nav class="navbar has-background-dark mb-5" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand is-family-code">
+    <a class="navbar-item has-text-white" href="/home">
+      <img src="/assets/images/benjamin_head.png" alt="site-logo" class="logo mx-2 my-1">
+      <p>
+        <strong class="is-size-4">E</strong>xpense.<strong class="is-size-4">R</strong>eimbursement.<strong class="is-size-4">S</strong>ystem.
+      </p>
     </a>
 
     <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -16,15 +19,15 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-light" *ngIf="!isLoggedIn()" routerLink="/login">
+        <div class="buttons is-family-code has-text-weight-bold">
+          <a class="button is-dark" *ngIf="!isLoggedIn()" routerLink="/login">
             Login
           </a>
           <a class="button is-dark" *ngIf="isLoggedIn()" (click)="logout()">
             Logout
           </a>
-          <a class="button is-primary" routerLink="/registration">
-            <strong>Sign Up</strong>
+          <a class="button is-dark" routerLink="/registration">
+            Sign Up
           </a>
         </div>
       </div>
