@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
+import { ModalService } from 'src/app/services/modal.service';
 import { ReimbursementService } from 'src/app/services/reimbursement.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class ReimbursementListComponent implements OnInit {
   constructor(
     private reimbService: ReimbursementService,
     private route: ActivatedRoute,
+    public modalService: ModalService
   ) { }
 
   ngOnInit() {

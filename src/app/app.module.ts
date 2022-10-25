@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReimbursementListComponent } from './components/reimbursement-list/reimbursement-list.component';
 import { ReceiptModalComponent } from './components/receipt-modal/receipt-modal.component';
+import { ResolveReimbursementComponent } from './components/resolve-reimbursement/resolve-reimbursement.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReceiptModalComponent } from './components/receipt-modal/receipt-modal.
     LoginComponent,
     RegistrationComponent,
     ReimbursementListComponent,
-    ReceiptModalComponent
+    ReceiptModalComponent,
+    ResolveReimbursementComponent
   ],
   imports: [
     BrowserModule,

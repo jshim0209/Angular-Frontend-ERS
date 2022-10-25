@@ -40,7 +40,7 @@
                     <a href="/status/1" class="dropdown-item">
                       Pending
                     </a>
-                    <a href="/status/2" class="dropdown-item is-active">
+                    <a href="/status/2" class="dropdown-item">
                       Approved
                     </a>
                     <a href="/status/3" class="dropdown-item">
@@ -50,6 +50,7 @@
                 </div>
               </div>
             </th>
+            <th class="has-text-white has-text-centered py-4" *ngIf="userRole == 'finance_manager'">Resolve</th>
           </tr>
       </thead>
       <tbody class="is-size-6">
@@ -61,19 +62,25 @@
             <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
             <td>{{reimbursementDto.type.type}}</td>
             <td>
-              <button class="button is-rounded" (click)="openModal()">View Receipt</button>
-              <div class="modal" [ngClass]="{isActive: isActive == false}">
-                <div class="modal-background"></div>
-                <div class="modal-content has-background-white py-5 px-5">
-                  <img mat-card-image src= "{{reimbursementDto.receipt}}" alt="No Picture">
+              <div class="button is-rounded" (click)="openModal()">View Receipt</div>
+              <div class="modal" [class.is-active]="isActive">
+                <div class="modal-background" (click)="openModal()"></div>
+                <div class="modal-content has-background-white py-4 px-4">
+                  <h3>Receipt Image</h3>
+                  <p class="image is-4by3">
+                    <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
+                  </p>
                 </div>
               </div>
-              <!--  -->
-              <!-- <img mat-card-image src= "{{reimbursementDto.receipt}}" alt="No Picture"> -->
             </td>
             <td>{{reimbursementDto.status.status}}</td>
+            <td *ngIf="userRole == 'finance_manager'">
+              <app-resolve-reimbursement *ngIf="modalService.openDialog"></app-resolve-reimbursement>
+              <div class="button is-rounded" (click)="modalService.openDialog= true">Resolve</div>
+            </td>
           </tr>
       </tbody>
     </table>
   </div>
 </section>
+
