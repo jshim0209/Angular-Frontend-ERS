@@ -1,32 +1,32 @@
-<section class="section">
-  <div class="container has-text-centered">
+<section class="section" id="login">
+  <div class="container has-text-centered is-family-code">
     <div class="colums">
       <div class="column is-half is-offset-one-quarter">
-        <div class="card pt-6">
+        <div class="card pt-6 has-background-dark">
           <div class="card-image">
             <img src="../../../assets/images/benjamin_head.png" alt="benjamin_head" class="benjamin py-4">
           </div>
-          <div class="card-title is-size-5 has-text-weight-bold is-family-code">
-            Expense Reimbursement System
+          <div class="card-title is-size-5 has-text-white pb-4">
+            <strong class="has-text-white title">E</strong>xpense.<strong class="has-text-white title">R</strong>eimbursement.<strong class="has-text-white title">S</strong>ystem
           </div>
           <div class="card-content">
             <div class="content">
               <form id="loginForm" [formGroup]="loginForm">
                 <div>
-                  <input type="text" class="input is-small is-rounded" id="username" name="username" placeholder="Username" formControlName="username">
+                  <input type="text" class="input is-small is-rounded is-family-code" id="username" name="username" placeholder="Username" formControlName="username">
                   <!-- <input type="text" name="username" id="username" placeholder="Username" formControlName="username"> -->
                   <p id="username-p" [ngClass]="isUsername ? '' : 'transparent'">* Username is required</p>
                 </div>
                 <div>
-                  <input type="password" class="input is-small is-rounded" id="password" name="password" placeholder="Password" formControlName="password">
+                  <input type="password" class="input is-small is-rounded is-family-code" id="password" name="password" placeholder="Password" formControlName="password">
                   <!-- <input type="password" name="password" id="password" placeholder="Password" formControlName="password"> -->
                   <p id="password-p" [ngClass]="isPassword ? '' : 'transparent'">* Password is required</p>
                 </div>
                 <p id="incorrectFields" [ngClass]="invalidCredentials ? '' : 'transparent'">* Username or password incorrect</p>
-                <input type="submit" class="button is-dark has-text-weight-bold is-family-code" value="Login" (click)="login()">
+                <input type="submit" class="button is-black has-text-weight-bold is-family-code" value="Login" (click)="login()">
               </form>
             </div>
-            <a routerLink="/registration" class="has-text-info has-text-weight-bold is-family-code">Create Account</a>
+            <a routerLink="/registration" class="has-text-white has-text-weight-bold is-family-code">Create Account</a>
           </div>
 
         </div>
