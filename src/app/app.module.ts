@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReimbursementListComponent } from './components/reimbursement-list/reimbursement-list.component';
 import { ReceiptModalComponent } from './components/receipt-modal/receipt-modal.component';
 import { ResolveReimbursementComponent } from './components/resolve-reimbursement/resolve-reimbursement.component';
+import { StatusFilterPipe } from './pipes/status-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ResolveReimbursementComponent } from './components/resolve-reimbursemen
     RegistrationComponent,
     ReimbursementListComponent,
     ReceiptModalComponent,
-    ResolveReimbursementComponent
+    ResolveReimbursementComponent,
+    StatusFilterPipe
   ],
   imports: [
     BrowserModule,

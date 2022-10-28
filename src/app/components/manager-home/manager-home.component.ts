@@ -14,11 +14,9 @@ import { ReimbursementService } from 'src/app/services/reimbursement.service';
 export class ManagerHomeComponent implements OnInit {
 
   @Input() status!: Status;
-  // status!: Status;
   firstName = localStorage.getItem('firstName');
   userId = localStorage.getItem('userId');
   userRole = localStorage.getItem('userRole');
-  // statuses = localStorage.getItem('statuses');
   statuses: Status[] = [];
   reimbursementDtos: ReimbursementDto[] = [];
   filteredData: ReimbursementDto[] = [];
@@ -26,6 +24,7 @@ export class ManagerHomeComponent implements OnInit {
   currentStatusId: number = 0;
   isActive: boolean = false;
   updateStatusDto!: UpdateStatusDto;
+  isFiltered: boolean = false;
 
   constructor(
     private reimbService: ReimbursementService,
@@ -77,6 +76,8 @@ export class ManagerHomeComponent implements OnInit {
 
   getAllReimbursements() {
 
+    this.isFiltered = false;
+
     this.reimbService.getAllReimbursements().subscribe({
       next: (data: any) => {
         this.reimbursementDtos = data;
@@ -85,15 +86,16 @@ export class ManagerHomeComponent implements OnInit {
   }
 
   getReimbursementsByStatus(statusId: number) {
-    if (statusId === 0) {
-      this.getAllReimbursements();
-    }
+
+    this.isFiltered = true;
 
     this.filteredData = this.reimbursementDtos.filter((reimbursement) => {
       return reimbursement.status.id === statusId;
+
     });
 
     console.log(this.filteredData);
+
   }
 
   // getReimbursementsByStatus(statusId: number) {
