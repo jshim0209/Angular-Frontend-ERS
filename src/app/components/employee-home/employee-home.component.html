@@ -1,1 +1,81 @@
-<app-reimbursement-list></app-reimbursement-list>
+<section class="section has-text-centered">
+  <div class="container has-text-black">
+      <h1 class="is-family-code is-size-1 has-text-weight-bold">Welcome <span>{{firstName}}</span>! <i class="fa-regular fa-hand"></i></h1>
+  </div>
+</section>
+
+<section class="section is-family-code has-text-centered">
+  <div class="container" style="width:70%">
+    <div class="block">
+      <h4 class="is-size-3 title mb-5">
+        Reimbursement Table
+      </h4>
+    </div>
+    <table aria-describedby="allReimbursements" class="table is-striped is-hoverable" id="dataTable">
+      <thead class="is-size-5 has-background-dark">
+          <tr>
+            <th class="has-text-white has-text-centered py-4">Date</th>
+            <th class="has-text-white has-text-centered py-4">Amount</th>
+            <th class="has-text-white has-text-centered py-4">Description</th>
+            <th class="has-text-white has-text-centered py-4">Author</th>
+            <!-- <th class="has-text-white has-text-centered">Resolver</th> -->
+            <th class="has-text-white has-text-centered py-4">Type</th>
+            <th class="has-text-white has-text-centered py-4">Receipt</th>
+            <th class="has-text-white has-text-centered">
+              <div class="dropdown is-hoverable">
+                <div class="dropdown-trigger">
+                  <button class="button is-rounded is-dark has-text-weight-bold mb-3" aria-haspopup="true" aria-controls="dropdown-menu2">
+                    <span>Status</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content">
+                    <a href="/reimbursements" class="dropdown-item">
+                      All
+                    </a>
+                    <hr class="dropdown-divider">
+                    <a href="/employee/status/1" class="dropdown-item">
+                      Pending
+                    </a>
+                    <a href="/employee/status/2" class="dropdown-item">
+                      Approved
+                    </a>
+                    <a href="/employee/status/3" class="dropdown-item">
+                      Declined
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+      </thead>
+      <tbody class="is-size-6">
+          <tr #reimbursement *ngFor="let reimbursementDto of reimbursementDtos">
+            <td>{{reimbursementDto.timeSubmitted}}</td>
+            <td>{{reimbursementDto.amount}}</td>
+            <td>{{reimbursementDto.description}}</td>
+            <td>{{reimbursementDto.author.username}}</td>
+            <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
+            <td>{{reimbursementDto.type.type}}</td>
+            <td>
+              <div class="button is-rounded" (click)="openModal()">View Receipt</div>
+              <div class="modal" [class.is-active]="isActive">
+                <div class="modal-background" (click)="openModal()"></div>
+                <div class="modal-content has-background-white py-4 px-4">
+                  <h3>Receipt Image</h3>
+                  <p class="image is-4by3">
+                    <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>{{reimbursementDto.status.status}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+

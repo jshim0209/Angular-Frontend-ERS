@@ -1,4 +1,4 @@
-<div class="modal is-active">
+<!-- <div class="modal is-active">
   <div class="modal-background" (click)="modalService.openDialog= false"></div>
 
   <div class="modal-card">
@@ -9,8 +9,8 @@
       <p>Ready to resolve this ticket?</p>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Approve</button>
-      <button class="button">Reject</button>
+      <button [value]="2" class="button is-success" (click)="resolveReimbursement()">Approve</button>
+      <button [value]="3" class="button">Reject</button>
     </footer>
   </div>
-</div>
+</div> -->

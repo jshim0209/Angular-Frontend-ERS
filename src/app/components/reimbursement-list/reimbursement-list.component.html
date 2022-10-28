@@ -54,7 +54,7 @@
           </tr>
       </thead>
       <tbody class="is-size-6">
-          <tr *ngFor="let reimbursementDto of reimbursementDtos">
+          <tr #reimbursement *ngFor="let reimbursementDto of reimbursementDtos">
             <td>{{reimbursementDto.timeSubmitted}}</td>
             <td>{{reimbursementDto.amount}}</td>
             <td>{{reimbursementDto.description}}</td>
@@ -75,8 +75,25 @@
             </td>
             <td>{{reimbursementDto.status.status}}</td>
             <td *ngIf="userRole == 'finance_manager'">
-              <app-resolve-reimbursement *ngIf="modalService.openDialog"></app-resolve-reimbursement>
-              <div class="button is-rounded" (click)="modalService.openDialog= true">Resolve</div>
+              <!-- <app-resolve-reimbursement *ngIf="modalService.openDialog"></app-resolve-reimbursement> -->
+              <div class="button is-rounded" (click)="openResolveModal(reimbursementDto.id)">Resolve</div>
+              <div class="modal">
+                <div class="modal-background" (click)="modalService.openDialog= false"></div>
+
+                <div class="modal-card">
+                  <header class="modal-card-head">
+                    <p class="modal-card-title">Please select: </p>
+                  </header>
+                  <section class="modal-card-body">
+                    <p>Ready to resolve this ticket?</p>
+                  </section>
+                  <footer class="modal-card-foot">
+                    <button class="button is-success" (click)="resolveReimbursement(+reimbursement.id, updateStatusDto)">Approve</button>
+                    <button class="button">Reject</button>
+                  </footer>
+                </div>
+              </div>
+
             </td>
           </tr>
       </tbody>

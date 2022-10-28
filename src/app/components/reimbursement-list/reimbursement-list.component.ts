@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
+import { UpdateStatusDto } from 'src/app/models/update-status-dto';
 import { ModalService } from 'src/app/services/modal.service';
 import { ReimbursementService } from 'src/app/services/reimbursement.service';
 
@@ -18,9 +19,11 @@ export class ReimbursementListComponent implements OnInit {
   userId = localStorage.getItem('userId');
   userRole = localStorage.getItem('userRole');
   reimbursementDtos: ReimbursementDto[] = [];
+  reimbursementDto!: ReimbursementDto;
   currentStatusId: number = 0;
   statuses: Status[] = [];
   isActive: boolean = false;
+  updateStatusDto!: UpdateStatusDto;
 
   constructor(
     private reimbService: ReimbursementService,
@@ -29,9 +32,10 @@ export class ReimbursementListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.listStatuses();
 
-    this.route.paramMap.subscribe(() => {
+    this.route.paramMap.subscribe((data) => {
       this.getReimbursements();
     });
   }
@@ -42,6 +46,11 @@ export class ReimbursementListComponent implements OnInit {
     } else {
       this.isActive = false;
     }
+  }
+
+  openResolveModal(reimbId: number) {
+    this.modalService.openDialog = true
+    console.log(reimbId);
   }
 
   getReimbursements() {
@@ -55,7 +64,7 @@ export class ReimbursementListComponent implements OnInit {
         this.getReimbursementByUserAndStatus(this.userId, this.currentStatusId);
 
       } else {
-        this.reimbService.getReimbursements(this.currentStatusId).subscribe(data => {
+        this.reimbService.getReimbursementsByStatus(this.currentStatusId).subscribe(data => {
           this.reimbursementDtos = data;
         });
       }
@@ -69,22 +78,29 @@ export class ReimbursementListComponent implements OnInit {
   }
 
   listStatuses() {
-    this.reimbService.getStatuses().subscribe(data => {
-      if(data) this.statuses = data;
+    this.reimbService.getStatuses().subscribe({
+      next:  (data: any) => {
+        this.status = data;
+        const reimbursements = JSON.stringify(data);
+        console.log(reimbursements);
+      }
     });
   }
 
   getAllReimbursements() {
 
-    this.reimbService.getAllReimbursements().subscribe(data => {
-      this.reimbursementDtos = data;
+    this.reimbService.getAllReimbursements().subscribe({
+      next: (data: any) => {
+        this.reimbursementDtos = data;
+        console.log(data);
+      }
     });
   }
 
   getReimbursementByUser(userId: string | null) {
 
     this.reimbService.getReimbursementByUser(userId).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.reimbursementDtos = data;
       }
     })
@@ -93,8 +109,17 @@ export class ReimbursementListComponent implements OnInit {
   getReimbursementByUserAndStatus(userId: string | null, status: number ) {
 
     this.reimbService.getReimbursementByUserAndStatus(userId, status).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.reimbursementDtos = data;
+      }
+    })
+  }
+
+  resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
+    this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe({
+      next: (data: any) => {
+        this.reimbursementDto = data;
+
       }
     })
   }
