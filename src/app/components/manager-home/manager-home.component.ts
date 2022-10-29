@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
 import { UpdateStatusDto } from 'src/app/models/update-status-dto';
@@ -28,16 +27,11 @@ export class ManagerHomeComponent implements OnInit {
 
   constructor(
     private reimbService: ReimbursementService,
-    private route: ActivatedRoute,
     public modalService: ModalService,
   ) { }
 
   ngOnInit() {
     this.listStatuses();
-
-    // this.route.paramMap.subscribe(() => {
-    //   this.getReimbursements();
-    // });
     this.getAllReimbursements();
   }
 
@@ -54,18 +48,6 @@ export class ManagerHomeComponent implements OnInit {
     console.log(reimbId);
   }
 
-  // getReimbursements() {
-  //   const hasStatusId: boolean = this.route.snapshot.paramMap.has('id');
-
-  //   if (hasStatusId) {
-
-  //     this.currentStatusId = +this.route.snapshot.paramMap.get('id')!;
-  //     this.getReimbursementsByStatus(this.currentStatusId);
-
-  //   }
-  //   this.getAllReimbursements();
-  // }
-
   listStatuses() {
     this.reimbService.getStatuses().subscribe({
       next:  (data: any) => {
@@ -75,9 +57,7 @@ export class ManagerHomeComponent implements OnInit {
   }
 
   getAllReimbursements() {
-
     this.isFiltered = false;
-
     this.reimbService.getAllReimbursements().subscribe({
       next: (data: any) => {
         this.reimbursementDtos = data;
@@ -86,9 +66,7 @@ export class ManagerHomeComponent implements OnInit {
   }
 
   getReimbursementsByStatus(statusId: number) {
-
     this.isFiltered = true;
-
     this.filteredData = this.reimbursementDtos.filter((reimbursement) => {
       return reimbursement.status.id === statusId;
 
@@ -97,13 +75,6 @@ export class ManagerHomeComponent implements OnInit {
     console.log(this.filteredData);
 
   }
-
-  // getReimbursementsByStatus(statusId: number) {
-  //   this.reimbService.getReimbursementsByStatus(statusId).subscribe(data => {
-  //     this.reimbursementDtos = data;
-  //   });
-  // }
-
 
   resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
     this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe({

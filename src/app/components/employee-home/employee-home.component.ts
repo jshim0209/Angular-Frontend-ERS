@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
 import { UpdateStatusDto } from 'src/app/models/update-status-dto';
@@ -13,30 +12,27 @@ import { ReimbursementService } from 'src/app/services/reimbursement.service';
 })
 export class EmployeeHomeComponent implements OnInit {
 
-  status!: Status;
+  @Input() status!: Status;
   firstName = localStorage.getItem('firstName');
   userId = localStorage.getItem('userId');
   userRole = localStorage.getItem('userRole');
-  reimbursementDtos: ReimbursementDto[] = [];
-  reimbursementDto!: ReimbursementDto;
-  currentStatusId: number = 0;
   statuses: Status[] = [];
+  reimbursementDtos: ReimbursementDto[] = [];
+  filteredData: ReimbursementDto[] = [];
+  currentStatusId: number = 0;
   isActive: boolean = false;
   updateStatusDto!: UpdateStatusDto;
+  isFiltered: boolean = false;
 
   constructor(
     private reimbService: ReimbursementService,
-    private route: ActivatedRoute,
     public modalService: ModalService,
   ) { }
 
   ngOnInit() {
 
     this.listStatuses();
-
-    this.route.paramMap.subscribe((data) => {
-      if(data) this.getReimbursements();
-    });
+    this.getReimbursementByUser(this.userId);
   }
 
   openModal() {
@@ -47,30 +43,17 @@ export class EmployeeHomeComponent implements OnInit {
     }
   }
 
-  getReimbursements() {
-    const hasStatusId: boolean = this.route.snapshot.paramMap.has('id');
-
-    if (hasStatusId) {
-
-      this.currentStatusId = +this.route.snapshot.paramMap.get('id')!;
-
-      this.getReimbursementByUserAndStatus(this.userId, this.currentStatusId);
-    }
-    this.getReimbursementByUser(this.userId);
-  }
-
   listStatuses() {
     this.reimbService.getStatuses().subscribe({
       next:  (data: any) => {
-        this.status = data;
-        const reimbursements = JSON.stringify(data);
-        console.log(reimbursements);
+        this.statuses = data;
+        console.log(data);
       }
     });
   }
 
   getReimbursementByUser(userId: string | null) {
-
+    this.isFiltered = false;
     this.reimbService.getReimbursementByUser(userId).subscribe({
       next: (data: any) => {
         this.reimbursementDtos = data;
@@ -78,12 +61,14 @@ export class EmployeeHomeComponent implements OnInit {
     })
   }
 
-  getReimbursementByUserAndStatus(userId: string | null, status: number ) {
+  getReimbursementByUserAndStatus(statusId: number ) {
 
-    this.reimbService.getReimbursementByUserAndStatus(userId, status).subscribe({
-      next: (data: any) => {
-        this.reimbursementDtos = data;
-      }
-    })
+    this.isFiltered = true
+    this.filteredData = this.reimbursementDtos.filter((reimbursement) => {
+      return reimbursement.status.id === statusId;
+
+    });
+
+    console.log(this.filteredData);
   }
 }

@@ -11,10 +11,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ReimbursementListComponent } from './components/reimbursement-list/reimbursement-list.component';
 import { ReceiptModalComponent } from './components/receipt-modal/receipt-modal.component';
 import { ResolveReimbursementComponent } from './components/resolve-reimbursement/resolve-reimbursement.component';
-import { StatusFilterPipe } from './pipes/status-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -25,10 +23,8 @@ import { StatusFilterPipe } from './pipes/status-filter.pipe';
     ManagerHomeComponent,
     LoginComponent,
     RegistrationComponent,
-    ReimbursementListComponent,
     ReceiptModalComponent,
     ResolveReimbursementComponent,
-    StatusFilterPipe
   ],
   imports: [
     BrowserModule,
