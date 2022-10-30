@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } 
 import { Router } from '@angular/router';
 import { LoginDto } from 'src/app/models/login-dto';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router,
+    private userService: UserService,
     private fb: UntypedFormBuilder
     ) {}
 
@@ -52,20 +54,11 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.loginDto).subscribe({
         next: (response: any) => {
           if(response.body?.jwt) {
-            localStorage.setItem('jwt', response.body.jwt);
-            localStorage.setItem('userId', response.body.userId);
-            localStorage.setItem('username', response.body.username);
-            localStorage.setItem('firstName', response.body.firstName);
-            localStorage.setItem('userRole', response.body.userRole);
+            this.userService.setToken(response.headers.get('Token'));
+            this.userService.setUser(response.body);
 
-            // console.log(response.body);
-            // console.log(localStorage.getItem('jwt'));
-            // console.log(localStorage.getItem('userId'));
-            // console.log(localStorage.getItem('username'));
-            // console.log(localStorage.getItem('firstName'));
-            // console.log(localStorage.getItem('userRole'));
-
-            response.body.userRole == 'employee' ? this.router.navigate(['employee-home']) : this.router.navigate(['manager-home']);
+            const role = response.body.userRole;
+            role == 'employee' ? this.router.navigate(['employee-home']) : this.router.navigate(['manager-home']);
 
           }
           },
@@ -86,7 +79,7 @@ export class LoginComponent implements OnInit {
   }
 
   isLoggedIn(){
-    if(localStorage.getItem('jwt') != null) {
+    if(this.userService.getToken() != null) {
       return true;
     } else {
       return false;

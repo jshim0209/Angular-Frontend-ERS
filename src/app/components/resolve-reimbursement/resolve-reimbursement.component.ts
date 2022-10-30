@@ -11,9 +11,10 @@ import { ReimbursementService } from 'src/app/services/reimbursement.service';
 })
 export class ResolveReimbursementComponent implements OnInit {
 
-  @Input() reimbId: number = 0;
-  reimbursementDto!: ReimbursementDto;
+  @Input() reimbId!: number;
+  @Input() resolveReimbDto!: ReimbursementDto;
 
+  reimbursementDto!: ReimbursementDto;
   reimbursementId = localStorage.getItem('reimbursementId');
   userId = localStorage.getItem('userId');
   statusId = localStorage.getItem('statusId');
@@ -25,6 +26,30 @@ export class ResolveReimbursementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  approveReimbursement(reimbId: number) {
+    const updateStatusDto = {
+      resolverId: Number(this.userId),
+      statusId: 2
+    };
+
+    console.log(reimbId);
+    console.log(updateStatusDto);
+
+    this.resolveReimbursement(reimbId, updateStatusDto);
+  }
+
+  rejectReimbursement(reimbId: number) {
+    const updateStatusDto = {
+      resolverId: Number(this.userId),
+      statusId: 3
+    };
+
+    console.log(reimbId);
+    console.log(updateStatusDto);
+
+    this.resolveReimbursement(reimbId, updateStatusDto);
   }
 
   resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {

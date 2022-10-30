@@ -1,16 +1,16 @@
-<!-- <div class="modal is-active">
-  <div class="modal-background" (click)="modalService.openDialog= false"></div>
-
+<div class="modal" [class.is-active]="modalService.openResolveModal ">
+  <div class="modal-background" (click)="modalService.openResolveModal = false"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Please select: </p>
     </header>
     <section class="modal-card-body">
       <p>Ready to resolve this ticket?</p>
+      <!-- <p>{{reimbursementDto.description}}</p> -->
     </section>
     <footer class="modal-card-foot">
-      <button [value]="2" class="button is-success" (click)="resolveReimbursement()">Approve</button>
-      <button [value]="3" class="button">Reject</button>
+      <button class="button is-success" (click)="approveReimbursement(reimbId)">Approve</button>
+      <button class="button" (click)="rejectReimbursement(reimbId)">Reject</button>
     </footer>
   </div>
-</div> -->
+</div>

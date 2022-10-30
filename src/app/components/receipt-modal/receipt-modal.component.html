@@ -1,9 +1,9 @@
-<div class="modal is-active">
-  <div class="modal-background"></div>
-  <div class="modal-content" *ngFor="let reimbursementDto of reimbursementDtos">
+<div class="modal" [class.is-active]="modalService.openReceiptModal">
+  <div class="modal-background" (click)="modalService.openReceiptModal = false"></div>
+  <div class="modal-content has-background-white py-4 px-4">
+    <h3>Receipt Image</h3>
     <p class="image is-4by3">
-      <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
+      <img src="{{modalReimbDto.receipt}}" alt="Receipt Image">
     </p>
   </div>
-  <button class="modal-close is-large" aria-label="close"></button>
 </div>

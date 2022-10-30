@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class ModalService {
 
-  openDialog: boolean = false;
+  openReceiptModal: boolean = false;
+  openResolveModal: boolean = false;
 
   constructor() { }
 }

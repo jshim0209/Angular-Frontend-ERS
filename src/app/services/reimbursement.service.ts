@@ -58,10 +58,9 @@ export class ReimbursementService {
 
   // update reimbursement status by manager
   updateReimbursementStatus(reimbursementId: number, updateStatusDto: UpdateStatusDto) {
-    const url = `${environment.BACKEND_URL}/reimbursements/${reimbursementId}/resolve`;
-    return this.httpClient.patch<Reimbursement>(url, {
-
-    });
+    const url = `${environment.BACKEND_URL}/reimbursement/${reimbursementId}`;
+    const body = updateStatusDto;
+    return this.httpClient.patch<Reimbursement>(url, body);
   }
 
 }
