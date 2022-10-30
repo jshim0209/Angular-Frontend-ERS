@@ -61,7 +61,7 @@
       </thead>
 
       <tbody *ngIf="!isFiltered" class="is-size-6">
-        <tr *ngFor="let reimbursementDto of reimbursementDtos">
+        <tr *ngFor="let reimbursementDto of reimbursementDtos;">
           <td>{{reimbursementDto.id}}</td>
           <td>{{reimbursementDto.timeSubmitted}}</td>
           <td>{{reimbursementDto.amount}}</td>
@@ -70,48 +70,19 @@
           <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
           <td>{{reimbursementDto.type.type}}</td>
           <td>
-            <app-receipt-modal [modalReimbDto]="reimbursementDto" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
-            <div class="button is-rounded" (click)="openReceiptModal()">View Receipt</div>
-
-            <!-- <div class="button is-rounded" (click)="openReceiptModal()">View Receipt</div>
-            <div class="modal" [class.is-active]="isReceiptModalActive">
-              <div class="modal-background" (click)="openReceiptModal()"></div>
-              <div class="modal-content has-background-white py-4 px-4">
-                <h3>Receipt Image</h3>
-                <p class="image is-4by3">
-                  <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
-                </p>
-              </div>
-            </div> -->
+            <app-receipt-modal [modalReimbDto]="editData" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
+            <div class="button is-rounded" (click)="openReceiptModal(reimbursementDto)">View Receipt</div>
           </td>
           <td>{{reimbursementDto.status.status}}</td>
           <td>
-            <app-resolve-reimbursement [reimbId]="reimbursementDto.id" *ngIf="modalService.openResolveModal"></app-resolve-reimbursement>
-            <div class="button is-rounded" (click)="openResolveModal()">Resolve</div>
-
-            <!-- <div class="modal" [class.is-active]="isResolveModalActive">
-              <div class="modal-background" (click)="openResolveModal()"></div>
-              <div class="modal-card">
-                <header class="modal-card-head">
-                  <p class="modal-card-title">Please select: </p>
-                </header>
-                <section class="modal-card-body">
-                  <p>Ready to resolve this ticket?</p>
-                  <p>{{reimbursementDto.description}}</p>
-                </section>
-                <footer class="modal-card-foot">
-                  <button class="button is-success" (click)="approveReimbursement(reimbursementDto.id)">Approve</button>
-                  <button class="button" (click)="rejectReimbursement(reimbursementDto.id)">Reject</button>
-                </footer>
-              </div>
-            </div> -->
-
+            <app-resolve-reimbursement [modalReimbDto]="editData" [modalUserData]="modalUserData" *ngIf="modalService.openResolveModal"></app-resolve-reimbursement>
+            <div *ngIf="reimbursementDto.status.id == 1" class="button is-rounded" (click)="openResolveModal(reimbursementDto)">Resolve</div>
           </td>
         </tr>
       </tbody>
 
       <tbody *ngIf="isFiltered" class="is-size-6">
-        <tr *ngFor="let reimbursementDto of filteredData">
+        <tr *ngFor="let reimbursementDto of filteredData;">
           <td>{{reimbursementDto.id}}</td>
           <td>{{reimbursementDto.timeSubmitted}}</td>
           <td>{{reimbursementDto.amount}}</td>
@@ -120,32 +91,13 @@
           <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
           <td>{{reimbursementDto.type.type}}</td>
           <td>
-            <app-receipt-modal [modalReimbDto]="reimbursementDto" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
-            <div class="button is-rounded" (click)="openReceiptModal()">View Receipt</div>
-
+            <app-receipt-modal [modalReimbDto]="editData" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
+            <div class="button is-rounded" (click)="openReceiptModal(reimbursementDto)">View Receipt</div>
           </td>
           <td>{{reimbursementDto.status.status}}</td>
           <td>
-            <app-resolve-reimbursement [reimbId]="reimbursementDto.id" *ngIf="modalService.openResolveModal"></app-resolve-reimbursement>
-            <div class="button is-rounded" (click)="openResolveModal()">Resolve</div>
-
-            <!-- <div class="button is-rounded" (click)="openResolveModal()">Resolve</div>
-            <div class="modal" [class.is-active]="isResolveModalActive">
-              <div class="modal-background" (click)="openResolveModal()"></div>
-              <div class="modal-card">
-                <header class="modal-card-head">
-                  <p class="modal-card-title">Please select: </p>
-                </header>
-                <section class="modal-card-body">
-                  <p>Ready to resolve this ticket?</p>
-                </section>
-                <footer class="modal-card-foot">
-                  <button class="button is-success" (click)="approveReimbursement(reimbursementDto.id)">Approve</button>
-                  <button class="button" (click)="rejectReimbursement(reimbursementDto.id)">Reject</button>
-                </footer>
-              </div>
-            </div> -->
-
+            <app-resolve-reimbursement [modalReimbDto]="editData" [modalUserData]="modalUserData" *ngIf="modalService.openResolveModal"></app-resolve-reimbursement>
+            <div *ngIf="reimbursementDto.status.id == 1" class="button is-rounded" (click)="openResolveModal(reimbursementDto)">Resolve</div>
           </td>
         </tr>
       </tbody>

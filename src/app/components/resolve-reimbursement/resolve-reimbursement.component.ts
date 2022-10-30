@@ -11,30 +11,25 @@ import { ReimbursementService } from 'src/app/services/reimbursement.service';
 })
 export class ResolveReimbursementComponent implements OnInit {
 
-  @Input() reimbId!: number;
-  @Input() resolveReimbDto!: ReimbursementDto;
+  @Input() modalReimbDto!: ReimbursementDto;
+  @Input() modalUserData: any;
 
   reimbursementDto!: ReimbursementDto;
-  reimbursementId = localStorage.getItem('reimbursementId');
-  userId = localStorage.getItem('userId');
-  statusId = localStorage.getItem('statusId');
-  timeResolved = localStorage.getItem('timeResolved');
 
   constructor(
     public modalService: ModalService,
     private reimbService: ReimbursementService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   approveReimbursement(reimbId: number) {
     const updateStatusDto = {
-      resolverId: Number(this.userId),
+      resolverId: this.modalUserData.userId,
       statusId: 2
     };
 
-    console.log(reimbId);
     console.log(updateStatusDto);
 
     this.resolveReimbursement(reimbId, updateStatusDto);
@@ -42,11 +37,10 @@ export class ResolveReimbursementComponent implements OnInit {
 
   rejectReimbursement(reimbId: number) {
     const updateStatusDto = {
-      resolverId: Number(this.userId),
+      resolverId: this.modalUserData.userId,
       statusId: 3
     };
 
-    console.log(reimbId);
     console.log(updateStatusDto);
 
     this.resolveReimbursement(reimbId, updateStatusDto);
@@ -59,7 +53,7 @@ export class ResolveReimbursementComponent implements OnInit {
 
       }
     })
-
+    this.reimbService.getAllReimbursements();
   }
 
 }

@@ -25,6 +25,8 @@ export class ManagerHomeComponent implements OnInit {
   isResolveModalActive: boolean = false;
   updateStatusDto!: UpdateStatusDto;
   isFiltered: boolean = false;
+  editData: any = {};
+  modalUserData = Object.assign(this.userService.getUser());
 
   constructor(
     private reimbService: ReimbursementService,
@@ -39,29 +41,29 @@ export class ManagerHomeComponent implements OnInit {
     this.getAllReimbursements();
   }
 
-  openReceiptModal() {
+  onSelect(selectedItem: any) {
+    console.log("Selected item Id: ", selectedItem.Id); // You get the Id of the selected item here
+}
+
+  openReceiptModal = (data: any) => {
     if (this.modalService.openReceiptModal == false) {
       this.modalService.openReceiptModal = true;
+      this.editData = Object.assign(data);
+      console.log(this.editData);
     } else {
       this.modalService.openReceiptModal = false;
     }
   }
 
-  openResolveModal() {
+  openResolveModal = (data: any) => {
     if (this.modalService.openResolveModal == false) {
       this.modalService.openResolveModal = true;
+      this.editData = Object.assign(data);
+      console.log(this.editData);
     } else {
       this.modalService.openResolveModal = false;
     }
   }
-
-  // openResolveModal() {
-  //   if (this.isResolveModalActive == false) {
-  //     this.isResolveModalActive = true;
-  //   } else {
-  //     this.isResolveModalActive = false;
-  //   }
-  // }
 
   listStatuses() {
     this.reimbService.getStatuses().subscribe({
