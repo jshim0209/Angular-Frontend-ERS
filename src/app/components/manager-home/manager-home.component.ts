@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
 import { UpdateStatusDto } from 'src/app/models/update-status-dto';
 import { ModalService } from 'src/app/services/modal.service';
 import { ReimbursementService } from 'src/app/services/reimbursement.service';
 import { UserService } from 'src/app/services/user.service';
+import { ResolveReimbursementComponent } from '../resolve-reimbursement/resolve-reimbursement.component';
 
 @Component({
   selector: 'app-manager-home',
@@ -12,6 +13,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./manager-home.component.css']
 })
 export class ManagerHomeComponent implements OnInit {
+
+  @ViewChild(ResolveReimbursementComponent)
+  resolveComponent!: ResolveReimbursementComponent;
 
   firstName = this.userService.getUser().firstName;
   userId = this.userService.getUser().userId;
@@ -28,6 +32,8 @@ export class ManagerHomeComponent implements OnInit {
   editData: any = {};
   modalUserData = Object.assign(this.userService.getUser());
 
+  modalOpen = this.modalService.openResolveModal;
+
   constructor(
     private reimbService: ReimbursementService,
     private userService: UserService,
@@ -35,8 +41,6 @@ export class ManagerHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.userId);
-    console.log(this.userRole);
     this.listStatuses();
     this.getAllReimbursements();
   }
@@ -52,6 +56,7 @@ export class ManagerHomeComponent implements OnInit {
       console.log(this.editData);
     } else {
       this.modalService.openReceiptModal = false;
+      this.getAllReimbursements();
     }
   }
 
@@ -62,7 +67,14 @@ export class ManagerHomeComponent implements OnInit {
       console.log(this.editData);
     } else {
       this.modalService.openResolveModal = false;
+      this.getAllReimbursements();
     }
+
+  }
+
+  closeResolveModal () {
+    this.modalService.openResolveModal = false;
+    this.getAllReimbursements();
   }
 
   listStatuses() {
@@ -92,39 +104,37 @@ export class ManagerHomeComponent implements OnInit {
 
   approveReimbursement(reimbId: number) {
     const updateStatusDto = {
-      resolverId: Number(this.userId),
+      resolverId: this.modalUserData.userId,
       statusId: 2
     };
 
-    console.log(reimbId);
-    console.log(updateStatusDto);
+    // console.log(updateStatusDto);
 
     this.resolveReimbursement(reimbId, updateStatusDto);
+    this.modalOpen = false;
+    // this.getAllReimbursements();
   }
 
   rejectReimbursement(reimbId: number) {
     const updateStatusDto = {
-      resolverId: Number(this.userId),
+      resolverId: this.modalUserData.userId,
       statusId: 3
     };
 
-    console.log(reimbId);
-    console.log(updateStatusDto);
+    // console.log(updateStatusDto);
 
     this.resolveReimbursement(reimbId, updateStatusDto);
+    this.modalOpen = false;
+    // this.getAllReimbursements();
   }
 
   resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
-
-    this.isFiltered = false;
-    this.isResolveModalActive = false;
-
-    this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe({
-      next: (data: any) => {
-        this.reimbursementDto = data;
-
+    this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe((data) => {
+      if (data != null) {
+        console.log(data);
+        // this.modalService.openResolveModal = false;
+        // this.getAllReimbursements();
       }
     });
-    this.getAllReimbursements();
   }
 }

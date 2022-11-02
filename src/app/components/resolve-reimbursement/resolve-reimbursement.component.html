@@ -1,5 +1,5 @@
-<div class="modal" [class.is-active]="modalService.openResolveModal ">
-  <div class="modal-background" (click)="modalService.openResolveModal = false"></div>
+<div class="modal" [class.is-active]="modalOpen">
+  <div class="modal-background" (click)="closeModal()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Please select: </p>
@@ -9,8 +9,20 @@
       <!-- <p>{{reimbursementDto.description}}</p> -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" (click)="approveReimbursement(modalReimbDto.id)">Approve</button>
-      <button class="button" (click)="rejectReimbursement(modalReimbDto.id)">Reject</button>
+      <button class="button is-success"
+              routerLink="manager-home"
+              routerLinkActive="active-link"
+              (click)="approveReimbursement(modalReimbDto.id)"
+      >
+        Approve
+      </button>
+      <button class="button"
+              routerLink="manager-home"
+              routerLinkActive="active-link"
+              (click)="rejectReimbursement(modalReimbDto.id)"
+      >
+        Reject
+      </button>
     </footer>
   </div>
 </div>
