@@ -17,6 +17,15 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isManager() {
+    console.log(this.userService.getUser());
+    if (this.userService.getUser().userRole === 'finance_manager') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

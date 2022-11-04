@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { UpdateStatusDto } from 'src/app/models/update-status-dto';
 import { ModalService } from 'src/app/services/modal.service';
 import { ReimbursementService } from 'src/app/services/reimbursement.service';
+// import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-resolve-reimbursement',
@@ -14,8 +15,8 @@ export class ResolveReimbursementComponent implements OnInit {
   @Input() modalReimbDto!: ReimbursementDto;
   @Input() modalUserData: any;
 
-  // @Output()
-  // updatedReimbData = new EventEmitter();
+  @Output()
+  reimbResolved = new EventEmitter();
 
   reimbursementDto!: ReimbursementDto;
   reimbursementDtos!: ReimbursementDto;
@@ -24,7 +25,6 @@ export class ResolveReimbursementComponent implements OnInit {
   constructor(
     public modalService: ModalService,
     private reimbService: ReimbursementService,
-    // private managerComponent: ManagerHomeComponent,
   ) { }
 
   ngOnInit() {
@@ -36,49 +36,49 @@ export class ResolveReimbursementComponent implements OnInit {
     this.modalService.openResolveModal = false;
   }
 
-  approveReimbursement(reimbId: number) {
+  approveReimbursement() {
     const updateStatusDto = {
+      reimbId: this.modalReimbDto.id,
       resolverId: this.modalUserData.userId,
       statusId: 2
     };
 
     // console.log(updateStatusDto);
 
-    this.resolveReimbursement(reimbId, updateStatusDto);
+    this.resolveReimbursement(updateStatusDto);
     this.modalOpen = false;
     // this.managerComponent.getAllReimbursements();
     // this.managerComponent.getAllReimbursements();
   }
 
-  rejectReimbursement(reimbId: number) {
+  rejectReimbursement() {
     const updateStatusDto = {
+      reimbId: this.modalReimbDto.id,
       resolverId: this.modalUserData.userId,
       statusId: 3
     };
 
     // console.log(updateStatusDto);
 
-    this.resolveReimbursement(reimbId, updateStatusDto);
+    this.resolveReimbursement(updateStatusDto);
     this.modalOpen = false;
     // this.managerComponent.getAllReimbursements();
     // this.managerComponent.getAllReimbursements();
   }
 
-  resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
+  resolveReimbursement(updateStatusDto: UpdateStatusDto) {
+    const reimbId = updateStatusDto.reimbId;
     this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe((data) => {
       if (data != null) {
         console.log(data);
+        // this.getAllReimbursements();
+        this.reimbResolved.emit();
+        this.modalOpen = false;
 
-        // this.updatedReimbData.emit("refresh");
+        // this.modalService.openResolveModal = false;
+        // this.getAllReimbursements();
       }
     });
-
-    // this.reimbService.getAllReimbursements().subscribe({
-    //   next: (data: any) => {
-    //     this.reimbursementDtos = data;
-    //   }
-    // });
-    // this.managerComponent.getAllReimbursements();
   }
 
   // resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {

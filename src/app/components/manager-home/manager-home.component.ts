@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { Status } from 'src/app/models/status';
 import { UpdateStatusDto } from 'src/app/models/update-status-dto';
@@ -38,6 +39,7 @@ export class ManagerHomeComponent implements OnInit {
     private reimbService: ReimbursementService,
     private userService: UserService,
     public modalService: ModalService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -85,6 +87,12 @@ export class ManagerHomeComponent implements OnInit {
     });
   }
 
+  refreshTable(event: Event) {
+    if (event != null) {
+      this.getAllReimbursements();
+    }
+  }
+
   getAllReimbursements() {
     this.isFiltered = false;
     this.reimbService.getAllReimbursements().subscribe({
@@ -102,39 +110,37 @@ export class ManagerHomeComponent implements OnInit {
     });
   }
 
-  approveReimbursement(reimbId: number) {
-    const updateStatusDto = {
-      resolverId: this.modalUserData.userId,
-      statusId: 2
-    };
+  // approveReimbursement(reimbId: number) {
+  //   const updateStatusDto = {
+  //     resolverId: this.modalUserData.userId,
+  //     statusId: 2
+  //   };
 
-    // console.log(updateStatusDto);
 
-    this.resolveReimbursement(reimbId, updateStatusDto);
-    this.modalOpen = false;
-    // this.getAllReimbursements();
-  }
+  //   this.resolveReimbursement(reimbId, updateStatusDto);
+  //   this.modalOpen = false;
+  //   this.router.navigate(['manager-home']);
+  // }
 
-  rejectReimbursement(reimbId: number) {
-    const updateStatusDto = {
-      resolverId: this.modalUserData.userId,
-      statusId: 3
-    };
+  // rejectReimbursement(reimbId: number) {
+  //   const updateStatusDto = {
+  //     resolverId: this.modalUserData.userId,
+  //     statusId: 3
+  //   };
 
-    // console.log(updateStatusDto);
 
-    this.resolveReimbursement(reimbId, updateStatusDto);
-    this.modalOpen = false;
-    // this.getAllReimbursements();
-  }
+  //   this.resolveReimbursement(reimbId, updateStatusDto);
+  //   this.modalOpen = false;
+  //   this.router.navigate(['manager-home']);
+  // }
 
-  resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
-    this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe((data) => {
-      if (data != null) {
-        console.log(data);
-        // this.modalService.openResolveModal = false;
-        // this.getAllReimbursements();
-      }
-    });
-  }
+  // resolveReimbursement(reimbId: number, updateStatusDto: UpdateStatusDto) {
+  //   this.reimbService.updateReimbursementStatus(reimbId, updateStatusDto).subscribe((data) => {
+  //     if (data != null) {
+  //       console.log(data);
+  //       return this.getAllReimbursements();
+
+  //     }
+  //   });
+  // }
 }

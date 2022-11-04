@@ -10,16 +10,12 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success"
-              routerLink="manager-home"
-              routerLinkActive="active-link"
-              (click)="approveReimbursement(modalReimbDto.id)"
+              (click)="approveReimbursement()"
       >
         Approve
       </button>
       <button class="button"
-              routerLink="manager-home"
-              routerLinkActive="active-link"
-              (click)="rejectReimbursement(modalReimbDto.id)"
+              (click)="rejectReimbursement()"
       >
         Reject
       </button>

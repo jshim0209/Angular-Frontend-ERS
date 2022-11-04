@@ -20,6 +20,12 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons is-family-code has-text-weight-bold">
+          <a class="button is-dark" *ngIf="isLoggedIn() && isManager()" routerLink="/manager-home">
+            View Reimbursements
+          </a>
+          <a class="button is-dark" *ngIf="isLoggedIn() && !isManager()" routerLink="/employee-home">
+            View my requests
+          </a>
           <a class="button is-dark" *ngIf="!isLoggedIn()" routerLink="/login">
             Login
           </a>
