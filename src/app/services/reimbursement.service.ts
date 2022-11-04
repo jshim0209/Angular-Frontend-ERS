@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Input } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ReimbursementDto } from 'src/app/models/reimbursement-dto';
 import { environment } from 'src/environments/environment';
+import { AddReimbursementDto } from '../models/add-reimbursement-dto';
 import { Reimbursement } from '../models/reimbursement';
 import { Status } from '../models/status';
 import { UpdateStatusDto } from '../models/update-status-dto';
@@ -12,12 +13,9 @@ import { UpdateStatusDto } from '../models/update-status-dto';
 })
 export class ReimbursementService {
 
-  constructor(private httpClient: HttpClient) {}
-
-  userId = localStorage.getItem('userId');
-  userRole = localStorage.getItem('userRole');
-  jwt = localStorage.getItem('jwt');
-  status = localStorage.getItem('status');
+  constructor(
+    private httpClient: HttpClient,
+    ) {}
 
   // get all reimbursement for manager
   getAllReimbursements() {
@@ -61,6 +59,13 @@ export class ReimbursementService {
     const url = `${environment.BACKEND_URL}/reimbursement/${reimbursementId}`;
     const body = updateStatusDto;
     return this.httpClient.patch<Reimbursement>(url, body);
+  }
+
+  // add new reimbursement
+  addReimbursement(userId: string, addReimbursementDto: AddReimbursementDto) {
+    const url = `${environment.BACKEND_URL}/users/${userId}/reimbursement`;
+    const body = addReimbursementDto;
+    return this.httpClient.post<ReimbursementDto>(url, body);
   }
 
 }

@@ -20,7 +20,8 @@
           <th class="has-text-white has-text-centered py-4">Amount</th>
           <th class="has-text-white has-text-centered py-4">Description</th>
           <th class="has-text-white has-text-centered py-4">Author</th>
-          <!-- <th class="has-text-white has-text-centered">Resolver</th> -->
+          <th class="has-text-white has-text-centered py-4">Resolver</th>
+          <th class="has-text-white has-text-centered py-4">Resolved Date</th>
           <th class="has-text-white has-text-centered py-4">Type</th>
           <th class="has-text-white has-text-centered py-4">Receipt</th>
           <th class="has-text-white has-text-centered">
@@ -58,52 +59,59 @@
         </tr>
       </thead>
 
-      <tbody *ngIf="!isFiltered" class="is-size-6">
+      <tbody *ngIf="!isFiltered" class="is-size-6 has-text-centered">
         <tr *ngFor="let reimbursementDto of reimbursementDtos">
           <td>{{reimbursementDto.timeSubmitted}}</td>
           <td>{{reimbursementDto.amount}}</td>
           <td>{{reimbursementDto.description}}</td>
           <td>{{reimbursementDto.author.username}}</td>
-          <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
+          <td *ngIf="reimbursementDto.resolver else noResolver">
+            {{reimbursementDto.resolver.username}}
+          </td>
+          <ng-template #noResolver>
+            <td>N/A</td>
+          </ng-template>
+          <td *ngIf="reimbursementDto.timeResolved else notResolved">
+            {{reimbursementDto.timeResolved}}
+          </td>
+          <ng-template #notResolved>
+            <td>N/A</td>
+          </ng-template>
           <td>{{reimbursementDto.type.type}}</td>
           <td>
-            <div class="button is-rounded" (click)="openModal()">View Receipt</div>
-            <div class="modal" [class.is-active]="isActive">
-              <div class="modal-background" (click)="openModal()"></div>
-              <div class="modal-content has-background-white py-4 px-4">
-                <h3>Receipt Image</h3>
-                <p class="image is-4by3">
-                  <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
-                </p>
-              </div>
-            </div>
+            <app-receipt-modal [modalReimbDto]="editData" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
+            <div class="button is-rounded" (click)="openReceiptModal(reimbursementDto)">View Receipt</div>
           </td>
           <td>{{reimbursementDto.status.status}}</td>
         </tr>
       </tbody>
-      <tbody *ngIf="isFiltered" class="is-size-6">
+      <tbody *ngIf="isFiltered" class="is-size-6 has-text-centered">
         <tr *ngFor="let reimbursementDto of filteredData">
           <td>{{reimbursementDto.timeSubmitted}}</td>
           <td>{{reimbursementDto.amount}}</td>
           <td>{{reimbursementDto.description}}</td>
           <td>{{reimbursementDto.author.username}}</td>
-          <!-- <td>{{reimbursementDto.resolver.username}}</td> -->
+          <td *ngIf="reimbursementDto.resolver else noResolver">
+            {{reimbursementDto.resolver.username}}
+          </td>
+          <ng-template #noResolver>
+            <td>N/A</td>
+          </ng-template>
+          <td *ngIf="reimbursementDto.timeResolved else notResolved">
+            {{reimbursementDto.timeResolved}}
+          </td>
+          <ng-template #notResolved>
+            <td>N/A</td>
+          </ng-template>
           <td>{{reimbursementDto.type.type}}</td>
           <td>
-            <div class="button is-rounded" (click)="openModal()">View Receipt</div>
-            <div class="modal" [class.is-active]="isActive">
-              <div class="modal-background" (click)="openModal()"></div>
-              <div class="modal-content has-background-white py-4 px-4">
-                <h3>Receipt Image</h3>
-                <p class="image is-4by3">
-                  <img src="{{reimbursementDto.receipt}}" alt="Receipt Image">
-                </p>
-              </div>
-            </div>
+            <app-receipt-modal [modalReimbDto]="editData" *ngIf="modalService.openReceiptModal"></app-receipt-modal>
+            <div class="button is-rounded" (click)="openReceiptModal(reimbursementDto)">View Receipt</div>
           </td>
           <td>{{reimbursementDto.status.status}}</td>
         </tr>
       </tbody>
     </table>
+    <a routerLink="/addReimbursement">Add new reimbursement</a>
   </div>
 </section>
